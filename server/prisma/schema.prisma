@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Users{
+
+  id                      Int @id @default(autoincrement())
+  username                String
+  email                   String @unique
+  password                String
+  role                    String
+  recipe Recipes[]
+  comment Comments[]
+  rating Ratings[]
+
+}
+
+model Recipes{
+
+  id                       Int @id @default(autoincrement())
+  userId                   Int
+  title                    String
+  description              String
+  cookingInst              String
+  nutritionInfo            Json
+  user Users               @relation(fields: [userId],references: [id])
+  comment Comments[]
+  rating Ratings[]
+  subcategory Categories[]          @relation("RecipeCategories")
+  subIngredient Ingredients[]       @relation("IngredientCategories")
+  subDietary DietaryPreferences[]   @relation("DietaryPreferences") 
+  subWine WinePairings[]            @relation("WinePairings")
+  subDessert DessertPairings[]      @relation("DessertPairings")
+
+}
+
+model Comments{
+
+  id                        Int @id @default(autoincrement())
+  userId                    Int
+  recipeId                  Int
+  recipeComment             String
+  timestamp                 DateTime @default(now())
+  user Users                @relation(fields: [userId],references: [id])
+  recipe Recipes            @relation(fields: [recipeId],references: [id])
+
+}
+
+model Ratings {
+
+  id                         Int @id @default(autoincrement())
+  userId                     Int
+  recipeId                   Int
+  recipeRating               Float
+  timestamp                  DateTime @default(now())
+  user Users                 @relation(fields: [userId],references: [id])
+  recipe Recipes             @relation(fields: [recipeId],references: [id])
+
+}
+
+model Categories {
+
+  id                          Int @id @default(autoincrement())
+  categoryName                String
+  recipe Recipes[]            @relation("RecipeCategories")
+
+}
+
+model Ingredients{
+
+  id                          Int @id @default(autoincrement())
+  ingredientName              String
+  subRecipe Recipes[]         @relation("IngredientCategories")
+
+}
+
+model DietaryPreferences{
+
+  id                          Int @id @default(autoincrement())
+  dietaryName                 String
+  subRecipe Recipes[]         @relation("DietaryPreferences")
+
+}
+
+model WinePairings{
+
+  id Int                      @id @default(autoincrement())
+  wineName                    String
+  subRecipe Recipes[]         @relation("WinePairings")
+
+}
+
+model DessertPairings{
+
+  id                          Int @id @default(autoincrement())
+  dessertName                 String
+  subRecipe Recipes[]         @relation("DessertPairings")
+  
+}
