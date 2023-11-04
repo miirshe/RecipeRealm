@@ -107,7 +107,143 @@ const login_user = async(req, res) => {
     }
 }
 
+const fetch_users = async(req, res) => {
+    try {
+
+        const existUsers = await prisma.users.findMany();
+
+        if (existUsers.length == []) {
+
+            res.json({
+                status: false,
+                message: 'No users found'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: existUsers
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+const fetch_user = async(req, res) => {
+    try {
+        const id = Number(req.params.id)
+        const existUsers = await prisma.users.findFirst({
+            where: {
+                id: id
+            }
+        });
+
+        if (!existUsers) {
+
+            res.json({
+                status: false,
+                message: 'No user found'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: existUsers
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+
+const remove_user = async(req, res) => {
+    try {
+        const id = Number(req.params.id)
+        const existUsers = await prisma.users.delete({
+            where: {
+                id: id
+            }
+        });
+
+        if (!existUsers) {
+
+            res.json({
+                status: false,
+                message: 'No user found'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: 'successfull deleted..'
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+
+const update_user = async(req, res) => {
+    try {
+        const id = Number(req.params.id)
+        const { email, username, bio, role, profile } = req.body
+        const existUsers = await prisma.users.update({
+            where: {
+                id: id
+            },
+            data: {
+                username: username,
+                email: email,
+                bio: bio,
+                role: role,
+                profile: profile
+            }
+        });
+
+        if (!existUsers) {
+
+            res.json({
+                status: false,
+                message: 'No user found'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: 'successfull updated...'
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+
+
 module.exports = {
     register_user,
-    login_user
+    login_user,
+    fetch_users,
+    fetch_user,
+    remove_user,
+    update_user
 }
