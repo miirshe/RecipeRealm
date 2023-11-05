@@ -70,7 +70,41 @@ const fetch_recipes = async(req, res) => {
 }
 
 
+// fetch single recipes by filtering with user 
+
+
+const fetch_recipe = async(req, res) => {
+    try {
+
+        const userId = req.existUser.id;
+        const fetch_recipe = await prisma.recipes.findMany({
+            where: {
+                userId: userId
+            }
+        })
+
+        if (fetch_recipe.length == []) {
+            res.json({
+                status: false,
+                message: 'recipes is empty...'
+            })
+        } else {
+            fetch_recipe
+        }
+
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+
+    }
+}
+
+
 module.exports = {
     add_recipe,
-    fetch_recipes
+    fetch_recipes,
+    fetch_recipe
 }
