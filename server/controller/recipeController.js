@@ -151,9 +151,45 @@ const update_recipe = async(req, res) => {
 }
 
 
+
+// reomve recipe by id
+
+const remove_recipe = async(req, res) => {
+
+    try {
+
+        const remove_recipe = await prisma.recipes.delete({
+            where: {
+                id: Number(req.params.id)
+            }
+        })
+
+        if (!remove_recipe) {
+            res.json({
+                status: false,
+                message: 'your recipe is empty...'
+            })
+        } else {
+            res.json({
+                status: true,
+                message: 'successfull deleted recipe...'
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+
+}
+
+
 module.exports = {
     add_recipe,
     fetch_recipes,
     fetch_recipe,
-    update_recipe
+    update_recipe,
+    remove_recipe
 }
