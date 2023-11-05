@@ -22,7 +22,7 @@ const add_recipe = async(req, res) => {
         if (!add_recipe) {
             res.json({
                 status: false,
-                message: 'something went wrong'
+                message: 'something went wrong...'
             })
         } else {
             res.json({
@@ -43,7 +43,34 @@ const add_recipe = async(req, res) => {
 
 // fetch all recipes controller
 
+const fetch_recipes = async(req, res) => {
+    try {
+
+        const fetch_recipes = await prisma.recipes.findMany();
+
+        if (fetch_recipes.length == []) {
+
+            res.json({
+                status: false,
+                message: 'recipes is empty...'
+            })
+        } else {
+            res.json({
+                fetch_recipes
+            })
+        }
+
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
 
 module.exports = {
-    add_recipe
+    add_recipe,
+    fetch_recipes
 }
