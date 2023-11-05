@@ -15,7 +15,6 @@ model Users{
   username                String
   email                   String @unique
   password                String
-  role                    String
   bio                     String
   profile                 String
   recipe Recipes[]
@@ -34,13 +33,8 @@ model Recipes{
   nutritionInfo            Json
   user Users               @relation(fields: [userId],references: [id])
   comment Comments[]
-  rating Ratings[]
-  subcategory Categories[]          @relation("RecipeCategories")
-  subIngredient Ingredients[]       @relation("IngredientCategories")
-  subDietary DietaryPreferences[]   @relation("DietaryPreferences") 
-  subWine WinePairings[]            @relation("WinePairings")
-  subDessert DessertPairings[]      @relation("DessertPairings")
-
+  rating Ratings[]     
+  ingredient Ingredients[]
 }
 
 model Comments{
@@ -67,42 +61,13 @@ model Ratings {
 
 }
 
-model Categories {
-
-  id                          Int @id @default(autoincrement())
-  categoryName                String
-  recipe Recipes[]            @relation("RecipeCategories")
-
-}
 
 model Ingredients{
 
   id                          Int @id @default(autoincrement())
   ingredientName              String
-  subRecipe Recipes[]         @relation("IngredientCategories")
+  userId                      Int
+  recipeId                    Int
+  recipe Recipes              @relation(fields: [recipeId], references: [id])
 
-}
-
-model DietaryPreferences{
-
-  id                          Int @id @default(autoincrement())
-  dietaryName                 String
-  subRecipe Recipes[]         @relation("DietaryPreferences")
-
-}
-
-model WinePairings{
-
-  id Int                      @id @default(autoincrement())
-  wineName                    String
-  subRecipe Recipes[]         @relation("WinePairings")
-
-}
-
-model DessertPairings{
-
-  id                          Int @id @default(autoincrement())
-  dessertName                 String
-  subRecipe Recipes[]         @relation("DessertPairings")
-  
 }
