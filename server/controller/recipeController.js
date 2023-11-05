@@ -8,7 +8,6 @@ const add_recipe = async(req, res) => {
 
         const { title, description, cookingInst, nutritionInfo } = req.body;
         const userId = req.existUser.id
-        console.log('useId', userId)
         const add_recipe = await prisma.recipes.create({
             data: {
                 title: title,
@@ -103,8 +102,58 @@ const fetch_recipe = async(req, res) => {
 }
 
 
+
+// update recipe by req.parama.id
+
+
+const update_recipe = async(req, res) => {
+    try {
+
+        const { title, description, cookingInst, nutritionInfo } = req.body;
+        const userId = req.existUser.id
+
+        const update_recipe = await prisma.recipes.update({
+            where: {
+                id: Number(req.params.id),
+            },
+            data: {
+                title: title,
+                description: description,
+                cookingInst: cookingInst,
+                nutritionInfo: nutritionInfo,
+                userId: userId
+            }
+        })
+
+        if (!update_recipe) {
+
+            res.json({
+                status: false,
+                message: 'something went wrong...'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: 'successfull updated recipe...'
+            })
+        }
+
+
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+
+    }
+}
+
+
 module.exports = {
     add_recipe,
     fetch_recipes,
-    fetch_recipe
+    fetch_recipe,
+    update_recipe
 }
