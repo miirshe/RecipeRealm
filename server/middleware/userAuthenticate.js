@@ -6,7 +6,7 @@ const userAuthenticate = (req, res, next) => {
         const token = req.cookies.userToken;
 
         if (!token) {
-            res.json({
+            return res.json({
                 status: false,
                 message: 'un authorized'
             })
