@@ -40,7 +40,7 @@ const add_comment = async(req, res) => {
 }
 
 
-//fetch all comments api
+//endpoint of fetch all comments api
 
 const fetchComments = async(req, res) => {
     try {
@@ -69,6 +69,9 @@ const fetchComments = async(req, res) => {
     }
 }
 
+
+
+// endpoint of single fetch comment api
 const fetchComment = async(req, res) => {
     try {
         const id = Number(req.params.id)
@@ -100,8 +103,60 @@ const fetchComment = async(req, res) => {
     }
 }
 
+
+
+// endpoint of update api
+const updateComment = async(req, res) => {
+    try {
+
+        const { recipeId, recipeComment } = req.body;
+        const id = Number(req.params.id);
+
+        const existComment = await prisma.comments.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!existComment) {
+            return res.json({
+                status: false,
+                message: 'not found this comment'
+            })
+        }
+
+        const comment = await prisma.comments.update({
+            where: {
+                id: id
+            },
+            data: {
+                recipeId: recipeId,
+                recipeComment: recipeComment
+            }
+        })
+
+        if (!comment) {
+            return res.json({
+                status: false,
+                message: 'something went wrong'
+            })
+        }
+        res.json({
+            status: true,
+            message: 'successfully updated comment...'
+        })
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
 module.exports = {
     add_comment,
     fetchComments,
-    fetchComment
+    fetchComment,
+    updateComment
 }
