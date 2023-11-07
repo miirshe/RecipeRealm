@@ -69,7 +69,39 @@ const fetchComments = async(req, res) => {
     }
 }
 
+const fetchComment = async(req, res) => {
+    try {
+        const id = Number(req.params.id)
+        const Comment = await prisma.comments.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!Comment) {
+
+            return res.json({
+                status: false,
+                message: 'comment is empty...'
+            })
+
+        }
+
+        res.json({
+            Comment
+        })
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+
+    }
+}
+
 module.exports = {
     add_comment,
-    fetchComments
+    fetchComments,
+    fetchComment
 }
