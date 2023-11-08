@@ -93,8 +93,62 @@ const fetchRating = async(req, res) => {
 }
 
 
+// endpoint update of rating
+
+const updateRating = async(req, res) => {
+    try {
+
+        const { recipeRating } = req.body;
+        const id = Number(req.params.id);
+
+        const existRating = await prisma.ratings.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!existRating) {
+            return res.json({
+                status: false,
+                message: 'rating not found...'
+            })
+        }
+
+        const rating = await prisma.ratings.update({
+            where: {
+                id: id
+            },
+            data: {
+                recipeRating: recipeRating
+            }
+        })
+
+        if (!rating) {
+            return res.json({
+                status: false,
+                message: 'rating not update...'
+            })
+        }
+
+        res.json({
+            status: true,
+            message: 'successfully rating update...'
+        })
+
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+
+    }
+}
+
+
 module.exports = {
     addRating,
     fetchRatings,
-    fetchRating
+    fetchRating,
+    updateRating
 }
