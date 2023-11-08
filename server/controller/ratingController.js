@@ -146,9 +146,59 @@ const updateRating = async(req, res) => {
 }
 
 
+// endpoint of rating delete
+
+const deleteRating = async(req, res) => {
+    try {
+
+        const id = Number(req.params.id);
+        const existRating = await prisma.ratings.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!existRating) {
+            return res.json({
+                status: false,
+                message: 'rating not found...'
+            })
+        }
+
+        const rating = await prisma.ratings.delete({
+            where: {
+                id: id
+            }
+        })
+
+        if (!rating) {
+            return res.json({
+                status: false,
+                message: 'rating not delete...'
+            })
+        }
+
+        res.json({
+            status: true,
+            message: 'successfully rating delete...'
+        })
+
+
+
+    } catch (error) {
+
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+
+    }
+}
+
 module.exports = {
     addRating,
     fetchRatings,
     fetchRating,
-    updateRating
+    updateRating,
+    deleteRating
 }
