@@ -1,5 +1,5 @@
 const { prisma } = require("../config/config");
-
+// endpoint of add rating
 const addRating = async(req, res) => {
     try {
         const { recipeRating, recipeId } = req.body;
@@ -14,7 +14,7 @@ const addRating = async(req, res) => {
 
         if (!rating) {
 
-            res.json({
+            return res.json({
                 status: false,
                 message: 'rating was not creating...'
             })
@@ -34,6 +34,34 @@ const addRating = async(req, res) => {
     }
 }
 
+
+// endpoint of fetch all rating 
+
+const fetchRating = async(req, res) => {
+    try {
+
+        const rating = await prisma.ratings.findMany();
+
+        if (rating.length == []) {
+            return res.json({
+                status: false,
+                message: 'rating is empty...',
+            })
+        }
+
+        res.json({
+            rating
+        })
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
 module.exports = {
-    addRating
+    addRating,
+    fetchRating
 }
