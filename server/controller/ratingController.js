@@ -37,7 +37,7 @@ const addRating = async(req, res) => {
 
 // endpoint of fetch all rating 
 
-const fetchRating = async(req, res) => {
+const fetchRatings = async(req, res) => {
     try {
 
         const rating = await prisma.ratings.findMany();
@@ -61,7 +61,40 @@ const fetchRating = async(req, res) => {
     }
 }
 
+
+//endpoint of fetch single recipe of ratings
+
+const fetchRating = async(req, res) => {
+    try {
+        const recipeId = Number(req.params.id);
+        const rating = await prisma.ratings.findMany({
+            where: {
+                recipeId: recipeId
+            }
+        });
+
+        if (rating.length == []) {
+            return res.json({
+                status: false,
+                message: 'rating is empty...',
+            })
+        }
+
+        res.json({
+            rating
+        })
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+
 module.exports = {
     addRating,
+    fetchRatings,
     fetchRating
 }
