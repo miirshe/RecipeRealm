@@ -9,73 +9,90 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Users{
+model User{
 
   id                      Int @id @default(autoincrement())
   username                String
   email                   String @unique
   password                String
-  bio                     String
-  profile                 String
+  role                    Role @default(user)
   createdAt               DateTime @default(now())
   updatedAt               DateTime @default(now())
-  recipe Recipes[]
-  comment Comments[]
-  rating Ratings[]
+  recipe                  Recipe[]
+  comment                 Comment[]
+  rating                  Rating[]
+  profile                 Profile[]
 
 }
 
-model Recipes{
+enum Role {
+  user
+  admin
+}
+
+model Recipe{
 
   id                       Int @id @default(autoincrement())
   userId                   Int
   title                    String
   description              String
-  cookingInst              String
-  nutritionInfo            Json
+  cookingInst              String?
+  categoryName             String 
+  ingredientName           String?
+  comment                  Comment[]
+  rating                   Rating[]     
+  nutritionInfo            NutritionInfo[]
+  user User                @relation(fields: [userId],references: [id])
   createdAt                DateTime @default(now())
   updatedAt                DateTime @default(now())
-  user Users               @relation(fields: [userId],references: [id])
-  comment Comments[]
-  rating Ratings[]     
-  ingredient Ingredients[]
 }
 
-model Comments{
+model Comment{
 
-  id                        Int @id @default(autoincrement())
-  userId                    Int
-  recipeId                  Int
-  recipeComment             String
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @default(now())
-  user Users                @relation(fields: [userId],references: [id])
-  recipe Recipes            @relation(fields: [recipeId],references: [id])
+  id                       Int @id @default(autoincrement())
+  userId                   Int
+  recipeId                 Int
+  recipeComment            String
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @default(now())
+  user User                @relation(fields: [userId],references: [id])
+  recipe Recipe            @relation(fields: [recipeId],references: [id])
 
 }
 
-model Ratings {
-
-  id                         Int @id @default(autoincrement())
-  userId                     Int
-  recipeId                   Int
-  recipeRating               Float
-  createdAt                  DateTime @default(now())
-  updatedAt                  DateTime @default(now())
-  user Users                 @relation(fields: [userId],references: [id])
-  recipe Recipes             @relation(fields: [recipeId],references: [id])
+model Rating {
+  id                       Int @id @default(autoincrement())
+  userId                   Int
+  recipeId                 Int
+  recipeRating             Float
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @default(now())
+  user User                @relation(fields: [userId],references: [id])
+  recipe Recipe            @relation(fields: [recipeId],references: [id])
 
 }
 
 
-model Ingredients{
+model NutritionInfo{
+  id                       Int @id @default(autoincrement())
+  calories                 Int
+  fat                      Float
+  carbs                    Float
+  protein                  Float
+  recipeId                 Int
+  recipe                   Recipe @relation(fields: [recipeId], references: [id])
+}
 
-  id                          Int @id @default(autoincrement())
-  ingredientName              String
-  userId                      Int
-  recipeId                    Int
-  createdAt                   DateTime @default(now())
-  updatedAt                   DateTime @default(now())
-  recipe Recipes              @relation(fields: [recipeId], references: [id])
-
+model Profile {
+  id                      Int @id @default(autoincrement())
+  firstName               String?
+  lastName                String?
+  bio                     String?
+  avatar                  String?
+  facebookLink            String?
+  youtubeLink             String?
+  twitterLink             String?
+  githubLink              String?
+  userId                  Int @unique
+  user                    User @relation(fields: [userId],references: [id])
 }

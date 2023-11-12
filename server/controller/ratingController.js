@@ -4,7 +4,7 @@ const addRating = async(req, res) => {
     try {
         const { recipeRating, recipeId } = req.body;
         const userId = req.existUser.id;
-        const rating = await prisma.ratings.create({
+        const rating = await prisma.rating.create({
             data: {
                 recipeRating: recipeRating,
                 recipeId: recipeId,
@@ -40,7 +40,7 @@ const addRating = async(req, res) => {
 const fetchRatings = async(req, res) => {
     try {
 
-        const rating = await prisma.ratings.findMany();
+        const rating = await prisma.rating.findMany();
 
         if (rating.length == []) {
             return res.json({
@@ -67,7 +67,7 @@ const fetchRatings = async(req, res) => {
 const fetchRating = async(req, res) => {
     try {
         const recipeId = Number(req.params.id);
-        const rating = await prisma.ratings.findMany({
+        const rating = await prisma.rating.findMany({
             where: {
                 recipeId: recipeId
             }
@@ -101,7 +101,7 @@ const updateRating = async(req, res) => {
         const { recipeRating } = req.body;
         const id = Number(req.params.id);
 
-        const existRating = await prisma.ratings.findUnique({
+        const existRating = await prisma.rating.findUnique({
             where: {
                 id: id
             }
@@ -114,7 +114,7 @@ const updateRating = async(req, res) => {
             })
         }
 
-        const rating = await prisma.ratings.update({
+        const rating = await prisma.rating.update({
             where: {
                 id: id
             },
@@ -152,7 +152,7 @@ const deleteRating = async(req, res) => {
     try {
 
         const id = Number(req.params.id);
-        const existRating = await prisma.ratings.findUnique({
+        const existRating = await prisma.rating.findUnique({
             where: {
                 id: id
             }
@@ -165,7 +165,7 @@ const deleteRating = async(req, res) => {
             })
         }
 
-        const rating = await prisma.ratings.delete({
+        const rating = await prisma.rating.delete({
             where: {
                 id: id
             }

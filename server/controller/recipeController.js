@@ -6,14 +6,15 @@ const add_recipe = async(req, res) => {
 
     try {
 
-        const { title, description, cookingInst, nutritionInfo } = req.body;
+        const { title, description, cookingInst, ingredientName, categoryName } = req.body;
         const userId = req.existUser.id
-        const add_recipe = await prisma.recipes.create({
+        const add_recipe = await prisma.recipe.create({
             data: {
                 title: title,
                 description: description,
                 cookingInst: cookingInst,
-                nutritionInfo: nutritionInfo,
+                ingredientName: ingredientName,
+                categoryName: categoryName,
                 userId: userId
             }
         })
@@ -45,7 +46,7 @@ const add_recipe = async(req, res) => {
 const fetch_recipes = async(req, res) => {
     try {
 
-        const fetch_recipes = await prisma.recipes.findMany();
+        const fetch_recipes = await prisma.recipe.findMany();
 
         if (fetch_recipes.length == []) {
 
@@ -76,7 +77,7 @@ const fetch_recipe = async(req, res) => {
     try {
 
         const userId = req.existUser.id;
-        const fetch_recipe = await prisma.recipes.findMany({
+        const fetch_recipe = await prisma.recipe.findMany({
             where: {
                 userId: userId
             }
@@ -109,10 +110,10 @@ const fetch_recipe = async(req, res) => {
 const update_recipe = async(req, res) => {
     try {
 
-        const { title, description, cookingInst, nutritionInfo } = req.body;
+        const { title, description, cookingInst, ingredientName, categoryName } = req.body;
         const userId = req.existUser.id
 
-        const update_recipe = await prisma.recipes.update({
+        const update_recipe = await prisma.recipe.update({
             where: {
                 id: Number(req.params.id),
             },
@@ -120,7 +121,8 @@ const update_recipe = async(req, res) => {
                 title: title,
                 description: description,
                 cookingInst: cookingInst,
-                nutritionInfo: nutritionInfo,
+                ingredientName: ingredientName,
+                categoryName: categoryName,
                 userId: userId
             }
         })
@@ -158,7 +160,7 @@ const remove_recipe = async(req, res) => {
 
     try {
 
-        const remove_recipe = await prisma.recipes.delete({
+        const remove_recipe = await prisma.recipe.delete({
             where: {
                 id: Number(req.params.id)
             }

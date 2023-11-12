@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const register_user = async(req, res) => {
     try {
-        const { username, email, password, bio, profile } = req.body;
-        const existUser = await prisma.users.findUnique({
+        const { username, email, password } = req.body;
+        const existUser = await prisma.user.findUnique({
             where: {
                 email: email
             }
@@ -19,13 +19,11 @@ const register_user = async(req, res) => {
         } else {
 
             const hassedPassword = await bcrypt.hash(password, 10)
-            const adduser = await prisma.users.create({
+            const adduser = await prisma.user.create({
                 data: {
                     username: username,
                     email: email,
                     password: hassedPassword,
-                    bio: bio,
-                    profile: profile
                 }
             })
 
@@ -55,7 +53,7 @@ const login_user = async(req, res) => {
     try {
 
         const { email, password } = req.body;
-        const existUser = await prisma.users.findUnique({
+        const existUser = await prisma.user.findUnique({
             where: {
                 email: email,
             }
@@ -109,7 +107,7 @@ const login_user = async(req, res) => {
 const fetch_users = async(req, res) => {
     try {
 
-        const existUsers = await prisma.users.findMany();
+        const existUsers = await prisma.user.findMany();
 
         if (existUsers.length == []) {
 
@@ -136,7 +134,7 @@ const fetch_users = async(req, res) => {
 const fetch_user = async(req, res) => {
     try {
         const id = Number(req.params.id)
-        const existUsers = await prisma.users.findFirst({
+        const existUsers = await prisma.user.findFirst({
             where: {
                 id: id
             }
@@ -168,7 +166,7 @@ const fetch_user = async(req, res) => {
 const remove_user = async(req, res) => {
     try {
         const id = Number(req.params.id)
-        const existUsers = await prisma.users.delete({
+        const existUsers = await prisma.user.delete({
             where: {
                 id: id
             }
@@ -200,16 +198,14 @@ const remove_user = async(req, res) => {
 const update_user = async(req, res) => {
     try {
         const id = Number(req.params.id)
-        const { email, username, bio, profile } = req.body
-        const existUsers = await prisma.users.update({
+        const { email, username } = req.body
+        const existUsers = await prisma.user.update({
             where: {
                 id: id
             },
             data: {
                 username: username,
                 email: email,
-                bio: bio,
-                profile: profile
             }
         });
 

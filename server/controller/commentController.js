@@ -7,7 +7,7 @@ const add_comment = async(req, res) => {
         const { recipeId, recipeComment } = req.body;
         const userId = req.existUser.id;
         console.log('userId', userId)
-        const addcomment = await prisma.comments.create({
+        const addcomment = await prisma.comment.create({
             data: {
                 recipeId: recipeId,
                 recipeComment: recipeComment,
@@ -45,7 +45,7 @@ const add_comment = async(req, res) => {
 const fetchComments = async(req, res) => {
     try {
 
-        const fetchComments = await prisma.comments.findMany();
+        const fetchComments = await prisma.comment.findMany();
         if (fetchComments.length == []) {
 
             return res.json({
@@ -75,7 +75,7 @@ const fetchComments = async(req, res) => {
 const fetchComment = async(req, res) => {
     try {
         const id = Number(req.params.id)
-        const Comment = await prisma.comments.findUnique({
+        const Comment = await prisma.comment.findUnique({
             where: {
                 id: id
             }
@@ -112,7 +112,7 @@ const updateComment = async(req, res) => {
         const { recipeId, recipeComment } = req.body;
         const id = Number(req.params.id);
 
-        const existComment = await prisma.comments.findUnique({
+        const existComment = await prisma.comment.findUnique({
             where: {
                 id: id
             }
@@ -125,7 +125,7 @@ const updateComment = async(req, res) => {
             })
         }
 
-        const comment = await prisma.comments.update({
+        const comment = await prisma.comment.update({
             where: {
                 id: id
             },
@@ -160,7 +160,7 @@ const deleteComment = async(req, res) => {
 
         const id = Number(req.params.id)
 
-        const existComment = await prisma.comments.findUnique({
+        const existComment = await prisma.comment.findUnique({
             where: {
                 id: id
             }
@@ -173,7 +173,7 @@ const deleteComment = async(req, res) => {
             })
         }
 
-        const comment = await prisma.comments.delete({
+        const comment = await prisma.comment.delete({
             where: {
                 id: id
             }
