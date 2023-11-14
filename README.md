@@ -73,10 +73,12 @@ res.json({
 | Field                | Type                       |           Description                       |
 |-------------         |----------                  |-----------------------------------          |
 | id                   | Int                        | Unique identifier for the user              |
-| username             | String                     | User's username                             |
-| email                | String                     | User's email address                        |
-| password             | String                     | User's password                             |
-| role                 | Role                       | User's role (default: user)                 |
+| title                | String                     | User's title                                |
+| description          | String                     | User's description                          |
+| cookingInst          | String?                    | User's cookingInst                          |
+| categoryName         | string                     | User's categoryName                         |
+| ingredientName       | String?                    | User's ingredientName                       |
+| userId               | Int                        | User's ID                                   |
 | createdAt            | DateTime                   | Date and time of user creation              |
 | updatedAt            | DateTime                   | Date and time of last update                |
 
@@ -88,6 +90,22 @@ res.json({
 - recipeRoutes.get('/recipe/currentUser', userAuthenticate, fetch_recipes)
 - recipeRoutes.put('/recipe/:id', userAuthenticate, recipeValiation, update_recipe)
 - recipeRoutes.delete('/recipe/:id', remove_recipe)
+```
+
+This code snippet returns a JSON response indicating that the recipe unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the recipe successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
+})
 ```
 
  
