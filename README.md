@@ -5,11 +5,20 @@ This project involves creating a backend system where users can share and browse
 (regular users and administrators), with users able to post recipes, comment, and rate them. Recipes should have categories, ingredients, 
 cooking instructions, and nutritional information. 
 
-#### building with these tools:
+### `building with these tools `:
 - Nodejs and Express
 - Supabase
 - PostgreSQL
 - Prisma (ORM)
+
+
+### `Models Of Schema RecipeRealm`:
+ - User
+ - Recipe
+ - Rating
+ - Comment
+ - NutritionInfo
+ - Profile
  
  
 
