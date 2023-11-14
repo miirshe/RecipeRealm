@@ -52,7 +52,7 @@ return res.json({
 
 ```
 
-This code snippet returns a JSON response indicating that the user unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `user unsuccessfully`.
+This code snippet returns a JSON response indicating that the user unsuccessfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `user unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -60,7 +60,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the user successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `user successfully`.
+This code snippet returns a JSON response indicating that the user successfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `user successfully`.
 ```
 res.json({
    status: true,
@@ -92,7 +92,7 @@ res.json({
 - recipeRoutes.delete('/recipe/:id', remove_recipe)
 ```
 
-This code snippet returns a JSON response indicating that the recipe unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+This code snippet returns a JSON response indicating that the recipe unsuccessfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -100,7 +100,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the recipe successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+This code snippet returns a JSON response indicating that the recipe successfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
@@ -130,7 +130,7 @@ res.json({
 - commentRoutes.delete('/comment/:id', deleteComment)
 ```
 
-This code snippet returns a JSON response indicating that the comment unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+This code snippet returns a JSON response indicating that the comment unsuccessfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -138,7 +138,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the comment successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+This code snippet returns a JSON response indicating that the comment successfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
@@ -167,7 +167,7 @@ res.json({
 - ratingRoutes.delete('/rating/:id', deleteRating)
 ```
 
-This code snippet returns a JSON response indicating that the rating registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+This code snippet returns a JSON response indicating that the rating `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -175,7 +175,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the rating successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+This code snippet returns a JSON response indicating that the rating successfully `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
@@ -207,7 +207,7 @@ res.json({
 - nutritionInfoRoutes.get('/nutritions', fetchNutritioninfos);
 ```
 
-This code snippet returns a JSON response indicating that the `NutritionInfo` `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+This code snippet returns a JSON response indicating that the NutritionInfo `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -215,7 +215,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the `NutritionInfo` `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
+This code snippet returns a JSON response indicating that the NutritionInfo `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
