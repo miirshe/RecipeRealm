@@ -189,23 +189,25 @@ res.json({
 | Field                | Type                       |           Description                       |
 |-------------         |----------                  |-----------------------------------          |
 | id                   | Int                        | Unique identifier for the comment           |
-| recipeRating         | Float                      | recipe ratings                              |
+| calories             | Int                        | Calories Nutrition                          |
+| fat                  | Float?                     | fat Nutrition                               |
+| carbs                | Float?                     | carbs Nutrition                             |
+| protein              | Float?                     | protein Nutrition                           |
 | recipeId             | Int                        | rating`s recipeId                           |                            
-| userId               | Int                        | User's ID                                   |
 | createdAt            | DateTime                   | Date and time of user creation              |
 | updatedAt            | DateTime                   | Date and time of last update                |
 
 
 ### ` NutritionInfo Routes and Endpoints `
 ```markdown
-- ratingRoutes.post('/rating/add', userAuthenticate, ratingValidation, addRating)
-- ratingRoutes.get('/ratings', fetchRatings)
-- ratingRoutes.get('/rating/:id', fetchRating)
-- ratingRoutes.put('/rating/:id', updateRating)
-- ratingRoutes.delete('/rating/:id', deleteRating)
+- nutritionInfoRoutes.post('/nutrition/add', nutritionInfoValidation, addNutritioninfo);
+- nutritionInfoRoutes.put('/nutrition/:id', updateNutritioninfo);
+- nutritionInfoRoutes.delete('/nutrition/:id', deleteNutritioninfo);
+- nutritionInfoRoutes.get('/nutrition/:id', fetchNutritioninfo);
+- nutritionInfoRoutes.get('/nutritions', fetchNutritioninfos);
 ```
 
-This code snippet returns a JSON response indicating that the rating registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+This code snippet returns a JSON response indicating that the `NutritionInfo` `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
 ```
 return res.json({
     status: false,
@@ -213,7 +215,7 @@ return res.json({
 })
 ```
 
-This code snippet returns a JSON response indicating that the rating successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+This code snippet returns a JSON response indicating that the `NutritionInfo` `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
