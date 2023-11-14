@@ -50,16 +50,13 @@ const fetchComments = async(req, res) => {
 
             return res.json({
                 status: false,
-                message: 'somthing went wrong...'
-            })
-
-        } else {
-
-            res.json({
-                fetchComments
+                message: 'comments are empty...'
             })
 
         }
+        res.json({
+            fetchComments
+        })
 
     } catch (error) {
         res.json({
