@@ -67,6 +67,28 @@ res.json({
    message: 'successfully'
 })
 ```
+
+### `Recipe Model`
+
+| Field                | Type                       |           Description                       |
+|-------------         |----------                  |-----------------------------------          |
+| id                   | Int                        | Unique identifier for the user              |
+| username             | String                     | User's username                             |
+| email                | String                     | User's email address                        |
+| password             | String                     | User's password                             |
+| role                 | Role                       | User's role (default: user)                 |
+| createdAt            | DateTime                   | Date and time of user creation              |
+| updatedAt            | DateTime                   | Date and time of last update                |
+
+### ` Recipe Routes and Endpoints `
+```markdown
+- recipeRoutes.post('/recipe/add', userAuthenticate, recipeValiation, add_recipe)
+- recipeRoutes.get('/recipes', fetch_recipes)
+- recipeRoutes.get('/recipe/currentUser', userAuthenticate, fetch_recipes)
+- recipeRoutes.put('/recipe/:id', userAuthenticate, recipeValiation, update_recipe)
+- recipeRoutes.delete('/recipe/:id', remove_recipe)
+```
+
  
  
 
