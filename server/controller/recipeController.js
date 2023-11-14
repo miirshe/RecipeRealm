@@ -20,7 +20,7 @@ const add_recipe = async(req, res) => {
         })
 
         if (!add_recipe) {
-            res.json({
+            return res.json({
                 status: false,
                 message: 'something went wrong...'
             })
@@ -32,7 +32,7 @@ const add_recipe = async(req, res) => {
         }
 
     } catch (error) {
-        res.json({
+        return res.json({
             status: false,
             message: `${error.message}`
         })
@@ -45,9 +45,7 @@ const add_recipe = async(req, res) => {
 
 const fetch_recipes = async(req, res) => {
     try {
-
         const fetch_recipes = await prisma.recipe.findMany();
-
         if (fetch_recipes.length == []) {
 
             res.json({
@@ -112,6 +110,19 @@ const update_recipe = async(req, res) => {
 
         const { title, description, cookingInst, ingredientName, categoryName } = req.body;
         const userId = req.existUser.id
+        const id = Number(req.params.id);
+        const existRecipe = await prisma.recipe.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!existRecipe) {
+            return res.json({
+                status: false,
+                message: 'recipe not exist...'
+            })
+        }
 
         const update_recipe = await prisma.recipe.update({
             where: {
@@ -129,22 +140,21 @@ const update_recipe = async(req, res) => {
 
         if (!update_recipe) {
 
-            res.json({
+            return res.json({
                 status: false,
                 message: 'something went wrong...'
             })
 
-        } else {
-            res.json({
-                status: true,
-                message: 'successfull updated recipe...'
-            })
         }
+        res.json({
+            status: true,
+            message: 'successfull updated recipe...'
+        })
 
 
     } catch (error) {
 
-        res.json({
+        return res.json({
             status: false,
             message: `${error.message}`
         })
