@@ -73,11 +73,11 @@ res.json({
 | Field                | Type                       |           Description                       |
 |-------------         |----------                  |-----------------------------------          |
 | id                   | Int                        | Unique identifier for the user              |
-| title                | String                     | User's title                                |
-| description          | String                     | User's description                          |
-| cookingInst          | String?                    | User's cookingInst                          |
-| categoryName         | string                     | User's categoryName                         |
-| ingredientName       | String?                    | User's ingredientName                       |
+| title                | String                     | recipe title                                |
+| description          | String                     | recipe description                          |
+| cookingInst          | String?                    | recipe cookingInst                          |
+| categoryName         | string                     | recipe categoryName                         |
+| ingredientName       | String?                    | recipe ingredientName                       |
 | userId               | Int                        | User's ID                                   |
 | createdAt            | DateTime                   | Date and time of user creation              |
 | updatedAt            | DateTime                   | Date and time of last update                |
@@ -101,6 +101,119 @@ return res.json({
 ```
 
 This code snippet returns a JSON response indicating that the recipe successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
+})
+```
+
+
+### `Comment Model`
+
+| Field                | Type                       |           Description                       |
+|-------------         |----------                  |-----------------------------------          |
+| id                   | Int                        | Unique identifier for the comment           |
+| recipeComment        | String                     | recipe comments                             |
+| recipeId             | Int                        | comment`s recipeId                          |                            
+| userId               | Int                        | User's ID                                   |
+| createdAt            | DateTime                   | Date and time of user creation              |
+| updatedAt            | DateTime                   | Date and time of last update                |
+
+
+### ` Comment Routes and Endpoints `
+```markdown
+- commentRoutes.post('/comment/add', userAuthenticate, commentValidation, add_comment)
+- commentRoutes.get('/comments', fetchComments)
+- commentRoutes.get('/comment/:id', fetchComment)
+- commentRoutes.put('/comment/:id', updateComment)
+- commentRoutes.delete('/comment/:id', deleteComment)
+```
+
+This code snippet returns a JSON response indicating that the comment unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the comment successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
+})
+```
+
+### `Rating Model`
+
+| Field                | Type                       |           Description                       |
+|-------------         |----------                  |-----------------------------------          |
+| id                   | Int                        | Unique identifier for the comment           |
+| recipeRating         | Float                      | recipe ratings                              |
+| recipeId             | Int                        | rating`s recipeId                           |                            
+| userId               | Int                        | User's ID                                   |
+| createdAt            | DateTime                   | Date and time of user creation              |
+| updatedAt            | DateTime                   | Date and time of last update                |
+
+
+### ` Rating Routes and Endpoints `
+```markdown
+- ratingRoutes.post('/rating/add', userAuthenticate, ratingValidation, addRating)
+- ratingRoutes.get('/ratings', fetchRatings)
+- ratingRoutes.get('/rating/:id', fetchRating)
+- ratingRoutes.put('/rating/:id', updateRating)
+- ratingRoutes.delete('/rating/:id', deleteRating)
+```
+
+This code snippet returns a JSON response indicating that the rating registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the rating successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
+})
+```
+
+
+### `NutritionInfo Model`
+
+| Field                | Type                       |           Description                       |
+|-------------         |----------                  |-----------------------------------          |
+| id                   | Int                        | Unique identifier for the comment           |
+| recipeRating         | Float                      | recipe ratings                              |
+| recipeId             | Int                        | rating`s recipeId                           |                            
+| userId               | Int                        | User's ID                                   |
+| createdAt            | DateTime                   | Date and time of user creation              |
+| updatedAt            | DateTime                   | Date and time of last update                |
+
+
+### ` NutritionInfo Routes and Endpoints `
+```markdown
+- ratingRoutes.post('/rating/add', userAuthenticate, ratingValidation, addRating)
+- ratingRoutes.get('/ratings', fetchRatings)
+- ratingRoutes.get('/rating/:id', fetchRating)
+- ratingRoutes.put('/rating/:id', updateRating)
+- ratingRoutes.delete('/rating/:id', deleteRating)
+```
+
+This code snippet returns a JSON response indicating that the rating registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the rating successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `successfully`.
 ```
 res.json({
    status: true,
