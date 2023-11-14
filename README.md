@@ -34,12 +34,14 @@ cooking instructions, and nutritional information.
 | updatedAt            | DateTime                   | Date and time of last update                |
 
 ### ` User Routes `
+```markdown
 - `userRoutes.post('/user/register', UserValidation, register_user)`
 - `userRoutes.post('/user/login', login_user)`
 - `userRoutes.get('/users', fetch_users)`
 - `userRoutes.get('/user/:id', fetch_user)`
 - `userRoutes.delete('/user/:id', remove_user)`
 - `userRoutes.put('/user/:id', update_user)`
+```
  
  
 
