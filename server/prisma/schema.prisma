@@ -75,10 +75,10 @@ model Rating {
 
 model NutritionInfo{
   id                       Int @id @default(autoincrement())
-  calories                 Int
-  fat                      Float
-  carbs                    Float
-  protein                  Float
+  calories                 Int?
+  fat                      Float?
+  carbs                    Float?
+  protein                  Float?
   recipeId                 Int
   recipe                   Recipe @relation(fields: [recipeId], references: [id])
 }
