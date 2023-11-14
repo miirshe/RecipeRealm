@@ -52,11 +52,19 @@ return res.json({
 
 ```
 
-This code snippet returns a JSON response indicating that the user unsuccessfully registered. It sets the status property to false and the message property to `user unsuccessfully`.
+This code snippet returns a JSON response indicating that the user unsuccessfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `user unsuccessfully`.
 ```
 return res.json({
     status: false,
     message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the user successfully registered , updated , and delete all about you see this message . It sets the status property to false and the message property to `user successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
 })
 ```
  
