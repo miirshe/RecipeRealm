@@ -6,9 +6,10 @@ This project involves creating a backend system where users can share and browse
 cooking instructions, and nutritional information. 
 
 #### building with these tools:
- - Item 1
-- Item 2
-- Item 3
+- Nodejs and Express
+- Supabase
+- PostgreSQL
+- Prisma (ORM)
  
  
 
