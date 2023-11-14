@@ -80,6 +80,7 @@ res.json({
 | createdAt            | DateTime                   | Date and time of user creation              |
 | updatedAt            | DateTime                   | Date and time of last update                |
 
+
 ### ` Recipe Routes and Endpoints `
 ```markdown
 - recipeRoutes.post('/recipe/add', userAuthenticate, recipeValiation, add_recipe)
