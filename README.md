@@ -42,6 +42,15 @@ cooking instructions, and nutritional information.
 - userRoutes.delete('/user/:id', remove_user)
 - userRoutes.put('/user/:id', update_user)
 ```
+
+This code snippet returns a JSON response indicating that the user already exists. It sets the status property to false and the message property to `user already exists`.
+```
+return res.json({
+    status: false,
+    message: 'user already exists'
+});
+
+```
  
  
 
