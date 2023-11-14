@@ -6,7 +6,7 @@ const ratingValidation = require('../validations/ratingValidation');
 const ratingRoutes = express.Router();
 ratingRoutes.post('/rating/add', userAuthenticate, ratingValidation, addRating)
 ratingRoutes.get('/ratings', fetchRatings)
-ratingRoutes.get('/ratings/:id', fetchRating)
+ratingRoutes.get('/rating/:id', fetchRating)
 ratingRoutes.put('/rating/:id', updateRating)
 ratingRoutes.delete('/rating/:id', deleteRating)
 
