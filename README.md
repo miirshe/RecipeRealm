@@ -51,6 +51,14 @@ return res.json({
 });
 
 ```
+
+This code snippet returns a JSON response indicating that the user unsuccessfully registered. It sets the status property to false and the message property to `user unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
  
  
 
