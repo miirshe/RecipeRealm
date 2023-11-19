@@ -26,9 +26,9 @@ cooking instructions, and nutritional information.
 | Field        | Type      | Description                                      | Attributes                                   |
 | ------------ | --------- | ------------------------------------------------ | -------------------------------------------- |
 | id           | Int       | Unique identifier for the user.                   | @id, @default(autoincrement())                |
-| username     | String    | Username of the user.                            |                                              |
+| username     | String    | Username of the user.                            |                                               |
 | email        | String    | Email address of the user.                        | @unique                                      |
-| password     | String    | Password of the user.                            |                                              |
+| password     | String    | Password of the user.                            |                                               |
 | role         | Role      | Role assigned to the user.                        | @default(user)                               |
 | createdAt    | DateTime  | Date and time when the user was created.          | @default(now())                              |
 | updatedAt    | DateTime  | Date and time when the user was last updated.     | @default(now())                              |
