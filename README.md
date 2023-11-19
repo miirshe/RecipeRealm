@@ -23,15 +23,19 @@ cooking instructions, and nutritional information.
 
 ### `User Model`
 
-| Field                | Type                       |           Description                       |
-|-------------         |----------                  |-----------------------------------          |
-| id                   | Int                        | Unique identifier for the user              |
-| username             | String                     | User's username                             |
-| email                | String                     | User's email address                        |
-| password             | String                     | User's password                             |
-| role                 | Role                       | User's role (default: user)                 |
-| createdAt            | DateTime                   | Date and time of user creation              |
-| updatedAt            | DateTime                   | Date and time of last update                |
+| Field        | Type      | Description                                      | Attributes                                   |
+| ------------ | --------- | ------------------------------------------------ | -------------------------------------------- |
+| id           | Int       | Unique identifier for the user.                   | @id, @default(autoincrement())                |
+| username     | String    | Username of the user.                            |                                              |
+| email        | String    | Email address of the user.                        | @unique                                      |
+| password     | String    | Password of the user.                            |                                              |
+| role         | Role      | Role assigned to the user.                        | @default(user)                               |
+| createdAt    | DateTime  | Date and time when the user was created.          | @default(now())                              |
+| updatedAt    | DateTime  | Date and time when the user was last updated.     | @default(now())                              |
+| recipe       | Recipe[]  | Array of recipes created by the user.             |                                              |
+| comment      | Comment[] | Array of comments made by the user.               |                                              |
+| rating       | Rating[]  | Array of ratings given by the user.               |                                              |
+| profile      | Profile[] | Array of profiles associated with the user.       | 
 
 ### ` User Routes and Endpoints `
 ```markdown
@@ -70,17 +74,21 @@ res.json({
 
 ### `Recipe Model`
 
-| Field                | Type                       |           Description                       |
-|-------------         |----------                  |-----------------------------------          |
-| id                   | Int                        | Unique identifier for the user              |
-| title                | String                     | recipe title                                |
-| description          | String                     | recipe description                          |
-| cookingInst          | String?                    | recipe cookingInst                          |
-| categoryName         | string                     | recipe categoryName                         |
-| ingredientName       | String?                    | recipe ingredientName                       |
-| userId               | Int                        | User's ID                                   |
-| createdAt            | DateTime                   | Date and time of user creation              |
-| updatedAt            | DateTime                   | Date and time of last update                |
+| Field           | Type            | Description                                      | Attributes                                   |
+| --------------- | --------------- | ------------------------------------------------ | -------------------------------------------- |
+| id              | Int             | Unique identifier for the recipe.                 | @id, @default(autoincrement())                |
+| userId          | Int             | Identifier for the associated user.               |                                              |
+| title           | String          | Title of the recipe.                              |                                              |
+| description     | String          | Description or summary of the recipe.             |                                              |
+| cookingInst     | String          | Cooking instructions for the recipe.              | Nullable                                     |
+| categoryName    | String          | Name of the category to which the recipe belongs. |                                              |
+| ingredientName  | String          | Name of the main ingredient in the recipe.        | Nullable                                     |
+| comment         | Comment[]       | Array of comments associated with the recipe.     |                                              |
+| rating          | Rating[]        | Array of ratings given to the recipe.             |                                              |
+| nutritionInfo   | NutritionInfo[] | Array of nutrition information for the recipe.    |                                              |
+| user            | User            | Relation to the User model.                       | @relation(fields: [userId], references: [id]) |
+| createdAt       | DateTime        | Date and time when the recipe was created.        | @default(now())                              |
+| updatedAt       | DateTime        | Date and time when the recipe was last updated.   | @default(now())                              |
 
 
 ### ` Recipe Routes and Endpoints `
@@ -111,14 +119,16 @@ res.json({
 
 ### `Comment Model`
 
-| Field                | Type                       |           Description                       |
-|-------------         |----------                  |-----------------------------------          |
-| id                   | Int                        | Unique identifier for the comment           |
-| recipeComment        | String                     | recipe comments                             |
-| recipeId             | Int                        | comment`s recipeId                          |                            
-| userId               | Int                        | User's ID                                   |
-| createdAt            | DateTime                   | Date and time of user creation              |
-| updatedAt            | DateTime                   | Date and time of last update                |
+| Field           | Type     | Description                                      | Attributes                                   |
+| --------------- | -------- | ------------------------------------------------ | -------------------------------------------- |
+| id              | Int      | Unique identifier for the comment.                | @id, @default(autoincrement())                |
+| userId          | Int      | Identifier for the associated user.               |                                              |
+| recipeId        | Int      | Identifier for the associated recipe.             |                                              |
+| recipeComment   | String   | Content of the comment.                           |                                              |
+| createdAt       | DateTime | Date and time when the comment was created.       | @default(now())                              |
+| updatedAt       | DateTime | Date and time when the comment was last updated.  | @default(now())                              |
+| user            | User     | Relation to the User model.                       | @relation(fields: [userId], references: [id]) |
+| recipe          | Recipe   | Relation to the Recipe model.                     | @relation(fields: [recipeId], references: [id]) |
 
 
 ### ` Comment Routes and Endpoints `
@@ -148,14 +158,16 @@ res.json({
 
 ### `Rating Model`
 
-| Field                | Type                       |           Description                       |
-|-------------         |----------                  |-----------------------------------          |
-| id                   | Int                        | Unique identifier for the comment           |
-| recipeRating         | Float                      | recipe ratings                              |
-| recipeId             | Int                        | rating`s recipeId                           |                            
-| userId               | Int                        | User's ID                                   |
-| createdAt            | DateTime                   | Date and time of user creation              |
-| updatedAt            | DateTime                   | Date and time of last update                |
+| Field         | Type     | Description                                      | Attributes                                     |
+| ------------- | -------- | ------------------------------------------------ | --------------------------------------------   |
+| id            | Int      | Unique identifier for the rating.                 | @id, @default(autoincrement())                |
+| userId        | Int      | Identifier for the associated user.               |                                               |
+| recipeId      | Int      | Identifier for the associated recipe.             |                                               |
+| recipeRating  | Float    | Rating given to the recipe.                       |                                               |
+| createdAt     | DateTime | Date and time when the rating was created.        | @default(now())                               |
+| updatedAt     | DateTime | Date and time when the rating was last updated.   | @default(now())                               |
+| user          | User     | Relation to the User model.                       | @relation(fields: [userId], references: [id]) |
+| recipe        | Recipe   | Relation to the Recipe model.                     | @relation(fields: [recipeId], references: [id]) |
 
 
 ### ` Rating Routes and Endpoints `
@@ -186,16 +198,15 @@ res.json({
 
 ### `NutritionInfo Model`
 
-| Field                | Type                       |           Description                       |
-|-------------         |----------                  |-----------------------------------          |
-| id                   | Int                        | Unique identifier for the comment           |
-| calories             | Int                        | Calories Nutrition                          |
-| fat                  | Float?                     | fat Nutrition                               |
-| carbs                | Float?                     | carbs Nutrition                             |
-| protein              | Float?                     | protein Nutrition                           |
-| recipeId             | Int                        | rating`s recipeId                           |                            
-| createdAt            | DateTime                   | Date and time of user creation              |
-| updatedAt            | DateTime                   | Date and time of last update                |
+| Field      | Type   | Description                                      | Attributes                                     |
+| ---------- | ------ | ------------------------------------------------ | --------------------------------------------   |
+| id         | Int    | Unique identifier for the nutrition information. | @id, @default(autoincrement())                 |
+| calories   | Int    | Number of calories in the recipe.                | Nullable                                       |
+| fat        | Float  | Amount of fat in grams in the recipe.            | Nullable                                       |
+| carbs      | Float  | Amount of carbohydrates in grams in the recipe.  | Nullable                                       |
+| protein    | Float  | Amount of protein in grams in the recipe.        | Nullable                                       |
+| recipeId   | Int    | Identifier for the associated recipe.            |                                                 |
+| recipe     | Recipe | Relation to the Recipe model.                    | @relation(fields: [recipeId], references: [id]) |
 
 
 ### ` NutritionInfo Routes and Endpoints `
@@ -216,6 +227,49 @@ return res.json({
 ```
 
 This code snippet returns a JSON response indicating that the NutritionInfo `registered` , `updated` , and `delete` all about you see this message . It sets the status property to true and the message property to `successfully`.
+```
+res.json({
+   status: true,
+   message: 'successfully'
+})
+```
+
+
+### `Profile Model`
+
+| Field         | Type    | Description                              | Attributes                              |
+| ------------- | ------- | ---------------------------------------- | --------------------------------------- |
+| id            | Int     | Unique identifier for the profile.        | @id, @default(autoincrement())           |
+| firstName     | String  | First name of the profile owner.          | Nullable                                |
+| lastName      | String  | Last name of the profile owner.           | Nullable                                |
+| bio           | String  | Biography or description of the profile.  | Nullable                                |
+| avatar        | String  | URL or path to the profile avatar image.  | Nullable                                |
+| facebookLink  | String  | URL to the Facebook profile of the user.  | Nullable                                |
+| youtubeLink   | String  | URL to the YouTube profile of the user.   | Nullable                                |
+| twitterLink   | String  | URL to the Twitter profile of the user.   | Nullable                                |
+| githubLink    | String  | URL to the GitHub profile of the user.    | Nullable                                |
+| userId        | Int     | Unique identifier for the associated user.| @unique                                 |
+| user          | User    | Relation to the User model.               | @relation(fields: [userId], references: [id]) |
+
+
+### ` userProfile Routes and Endpoints `
+```markdown
+- userProfileRoutes.post('/userProfile/add', userAuthenticate, userProfileValidation, addUserProfile);
+- userProfileRoutes.put('/userProfile/:id', userProfileValidation, updateUserProfile);
+- userProfileRoutes.delete('/userProfile/:id', deleteUserProfile);
+- userProfileRoutes.get('/userProfile/:id', fetchUserProfile);
+- userProfileRoutes.get('/usersProfile', fetchUsersProfile);
+```
+
+This code snippet returns a JSON response indicating that the Profile  `registered` , `updated` , and `delete` all about you see this message . It sets the status property to false and the message property to `unsuccessfully`.
+```
+return res.json({
+    status: false,
+    message: 'unsuccessfully'
+})
+```
+
+This code snippet returns a JSON response indicating that the Profile  `registered` , `updated` , and `delete` all about you see this message . It sets the status property to true and the message property to `successfully`.
 ```
 res.json({
    status: true,
