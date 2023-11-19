@@ -6,6 +6,7 @@ const recipeRoutes = require('./routes/recipeRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const ratingRoutes = require('./routes/ratingRoutes');
 const nutritionInfoRoutes = require('./routes/nutritionInfoRoutes');
+const userProfileRoutes = require('./routes/userProfileRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
 app.use('/api', ratingRoutes);
 app.use('/api', nutritionInfoRoutes);
+app.use('/api', userProfileRoutes);
 app.use('/api', recipeRoutes);
 
 app.listen(PORT, () => {

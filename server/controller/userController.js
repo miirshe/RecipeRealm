@@ -12,7 +12,7 @@ const register_user = async(req, res) => {
         })
 
         if (existUser) {
-            res.json({
+            return res.json({
                 status: false,
                 message: 'user already exists'
             })
@@ -27,17 +27,16 @@ const register_user = async(req, res) => {
                 }
             })
 
-            if (adduser) {
-                res.json({
-                    status: true,
-                    message: 'successfully registered...'
-                })
-            } else {
-                res.json({
+            if (!adduser) {
+                return res.json({
                     status: false,
-                    message: 'something went wrong try again...'
+                    message: 'unsuccessfully'
                 })
             }
+            res.json({
+                status: true,
+                message: 'successfully'
+            })
 
         }
 
