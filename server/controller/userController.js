@@ -71,14 +71,14 @@ const login_user = async(req, res) => {
             const comparePassword = await bcrypt.compare(password, existUser.password)
 
             if (!comparePassword) {
-                res.json({
+                return res.json({
                     status: false,
                     message: 'invalid email or password...'
                 })
             } else {
 
-                const userToken = await jwt.sign({ id: existUser.id }, jwt_secret)
-                res.cookie('userToken', userToken, {
+                const token = await jwt.sign({ id: existUser.id }, jwt_secret)
+                res.cookie('userToken', token, {
                     httpOnly: true,
                     secure: false,
                     maxAge: 7 * 24 * 60 * 60 * 1000
@@ -86,7 +86,8 @@ const login_user = async(req, res) => {
 
                 res.json({
                     status: true,
-                    message: 'successfully login...'
+                    message: 'successfully login...',
+                    token
                 })
 
             }
