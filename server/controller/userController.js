@@ -231,6 +231,39 @@ const update_user = async(req, res) => {
     }
 }
 
+const current_user = async(req, res) => {
+    try {
+        const id = req.existUser.id
+        const existUsers = await prisma.user.findFirst({
+            where: {
+                id: id
+            }
+        });
+
+        if (!existUsers) {
+
+            return res.json({
+                status: false,
+                message: 'No user found'
+            })
+
+        } else {
+            res.json({
+                status: true,
+                message: existUsers
+            })
+        }
+
+    } catch (error) {
+        res.json({
+            status: false,
+            message: `${error.message}`
+        })
+    }
+}
+
+
+
 
 
 module.exports = {
@@ -239,5 +272,6 @@ module.exports = {
     fetch_users,
     fetch_user,
     remove_user,
-    update_user
+    update_user,
+    current_user
 }
