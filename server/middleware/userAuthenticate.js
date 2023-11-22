@@ -3,7 +3,7 @@ const { jwt_secret } = require("../config/config");
 const userAuthenticate = (req, res, next) => {
     try {
 
-        const token = headers.authorization
+        const token = req.headers.authorization || req.cookies.userToken;
 
         if (!token) {
             return res.json({
