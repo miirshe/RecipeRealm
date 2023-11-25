@@ -165,7 +165,7 @@ const fetch_user = async(req, res) => {
 
 const remove_user = async(req, res) => {
     try {
-        const id = Number(req.params.id)
+        const id = req.existUser.id
         const existUsers = await prisma.user.delete({
             where: {
                 id: id
@@ -197,7 +197,7 @@ const remove_user = async(req, res) => {
 
 const update_user = async(req, res) => {
     try {
-        const id = Number(req.params.id)
+        const id = req.existUser.id
         const { email, username } = req.body
         const existUsers = await prisma.user.update({
             where: {

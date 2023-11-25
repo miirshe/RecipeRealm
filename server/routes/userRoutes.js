@@ -9,7 +9,7 @@ userRoutes.post('/user/login', login_user)
 userRoutes.get('/users', fetch_users)
 userRoutes.get('/user/:id', fetch_user)
 userRoutes.get('/user', userAuthenticate, current_user)
-userRoutes.delete('/user/:id', remove_user)
-userRoutes.put('/user/:id', update_user)
+userRoutes.delete('/user', userAuthenticate, remove_user)
+userRoutes.put('/user', userAuthenticate, update_user)
 
 module.exports = userRoutes;
