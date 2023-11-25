@@ -39,11 +39,11 @@ const addUserProfile = async(req, res) => {
 
 const updateUserProfile = async(req, res) => {
     try {
-        const id = Number(req.params.id);
+        const id = req.existUser.id;
         const { firstName, lastName, bio, avatar, facebookLink, youtubeLink, twitterLink, githubLink } = req.body;
         const existUserProfile = await prisma.profile.findUnique({
             where: {
-                id: id
+                userId: id
             }
         })
 
@@ -55,7 +55,7 @@ const updateUserProfile = async(req, res) => {
         }
         const UserProfile = await prisma.profile.update({
             where: {
-                id: id
+                userId: id
             },
             data: {
                 firstName: firstName,
@@ -90,10 +90,10 @@ const updateUserProfile = async(req, res) => {
 
 const deleteUserProfile = async(req, res) => {
     try {
-        const id = Number(req.params.id);
+        const id = req.existUser.id;
         const existUserProfile = await prisma.profile.findUnique({
             where: {
-                id: id
+                userId: id
             }
         })
 
@@ -105,7 +105,7 @@ const deleteUserProfile = async(req, res) => {
         }
         const UserProfile = await prisma.profile.delete({
             where: {
-                id: id
+                userId: id
             }
         })
         if (!UserProfile) {

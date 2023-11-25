@@ -5,8 +5,8 @@ const userAuthenticate = require('../middleware/userAuthenticate');
 
 const userProfileRoutes = express.Router();
 userProfileRoutes.post('/userProfile/add', userAuthenticate, userProfileValidation, addUserProfile);
-userProfileRoutes.put('/userProfile/:id', userProfileValidation, updateUserProfile);
-userProfileRoutes.delete('/userProfile/:id', deleteUserProfile);
+userProfileRoutes.put('/userProfile', userAuthenticate, userProfileValidation, updateUserProfile);
+userProfileRoutes.delete('/userProfile', userAuthenticate, deleteUserProfile);
 userProfileRoutes.get('/userProfile', userAuthenticate, fetchUserProfile);
 userProfileRoutes.get('/usersProfile', fetchUsersProfile);
 module.exports = userProfileRoutes;
