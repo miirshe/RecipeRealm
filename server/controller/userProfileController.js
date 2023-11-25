@@ -155,7 +155,6 @@ const fetchUsersProfile = async(req, res) => {
 const fetchUserProfile = async(req, res) => {
     try {
         const id = req.existUser.id;
-        console.log(id);
         const UserProfile = await prisma.profile.findUnique({
             where: {
                 userId: id
