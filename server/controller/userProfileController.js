@@ -154,10 +154,11 @@ const fetchUsersProfile = async(req, res) => {
 
 const fetchUserProfile = async(req, res) => {
     try {
-        const id = Number(req.params.id);
+        const id = req.existUser.id;
+        console.log(id);
         const UserProfile = await prisma.profile.findUnique({
             where: {
-                id: id
+                userId: id
             }
         });
         if (!UserProfile) {

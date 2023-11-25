@@ -7,6 +7,6 @@ const userProfileRoutes = express.Router();
 userProfileRoutes.post('/userProfile/add', userAuthenticate, userProfileValidation, addUserProfile);
 userProfileRoutes.put('/userProfile/:id', userProfileValidation, updateUserProfile);
 userProfileRoutes.delete('/userProfile/:id', deleteUserProfile);
-userProfileRoutes.get('/userProfile/:id', fetchUserProfile);
+userProfileRoutes.get('/userProfile', userAuthenticate, fetchUserProfile);
 userProfileRoutes.get('/usersProfile', fetchUsersProfile);
 module.exports = userProfileRoutes;
