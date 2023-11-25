@@ -9,13 +9,9 @@ const nutritionInfoRoutes = require('./routes/nutritionInfoRoutes');
 const userProfileRoutes = require('./routes/userProfileRoutes');
 const multer = require('multer');
 const app = express();
-
 const PORT = process.env.PORT || 9000;
-
 app.use(express.json());
-
 app.use(cors());
-
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
@@ -34,6 +30,7 @@ app.post('/api/upload', upload.single('file'), function(req, res) {
 app.use('/api/upload', (req, res) => {
     return res.send('success')
 })
+
 
 app.use('/api', userRoutes);
 app.use('/api', commentRoutes);

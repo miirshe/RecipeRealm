@@ -15,7 +15,7 @@ const EditProfile = () => {
 
 	const userProfile = user_profile?.UserProfile || [];
 	const user = current_user?.message || [];
-	const [file, setFile] = useState(null);
+	const [files, setFiles] = useState(null);
 	const initialValues = {
 		username: user?.username || '',
 		email: user?.email || '',
@@ -30,7 +30,7 @@ const EditProfile = () => {
 	const upload = async () => {
 		try {
 			const formData = new FormData();
-			formData.append('file', file || ' ');
+			formData.append('file', files || '');
 			const res = await axios.post('https://reciperealm-lf70.onrender.com/api/upload',formData);
 			return res.data;
 		} catch (error) {
@@ -40,7 +40,7 @@ const EditProfile = () => {
 	const handleFileUpload = (event) => {
 		const uploadfile = event.target.files[0];
 		if (uploadfile) {
-			setFile(uploadfile);
+			setFiles(uploadfile);
 		}
 	}
 
@@ -111,7 +111,7 @@ const EditProfile = () => {
 							<input className="hidden w-full rounded shadow outline-[#00A699]" type="file" accept="image/*" name="file" id="file"
 								onChange={handleFileUpload} />
 							<label className=" absolute left-[10%] md:left-[36%]  top-16 cursor-pointer p-2 bg-white rounded" htmlFor="file"><MdUploadFile className="inline" size={20} /> Edit</label>
-							{file ? <img className="w-36 h-36 rounded-full shadow-2xl" src={URL.createObjectURL(file || ' ')} alt="" />
+							{files ? <img className="w-36 h-36 rounded-full shadow-2xl" src={URL.createObjectURL(files || ' ')} alt="" />
 								: <img className="w-36 h-36 rounded-full shadow-2xl " src={userProfile?.avatar ? `uploads/${userProfile?.avatar}` : ''} alt="" />}
 						</div>
 						<div className="w-full grid grid-cols-1 md:grid-cols-2 justify-start items-center gap-3">
